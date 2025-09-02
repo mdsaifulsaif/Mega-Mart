@@ -3,10 +3,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function SmartphoneSlider() {
   const [phones, setPhones] = useState([]);
   const [loading, setLoading] = useState(true);
+  const session = useSession();
 
   // Fetch smartphone data from API
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function SmartphoneSlider() {
 
   return (
     <div className="max-w-6xl px-5 mx-auto mb-8 mt-20">
+      {JSON.stringify(session)}
       {/* Title */}
       <div className="flex justify-between items-center mb-4 w-full">
         <h2 className="text-2xl font-bold">
