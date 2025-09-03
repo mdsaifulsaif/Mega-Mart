@@ -102,12 +102,53 @@ export default function TopElectronicsBrands() {
         centerSlidePercentage={slidePercentage}
       >
         {brands.map((brand) => (
+          // <div
+          //   key={brand.id}
+          //   className={`bg-[url(/https://ibb.co.com/wrck2bbr)]  rounded-xl p-5 flex justify-between items-center mx-2 ${brand.bg} ${brand.textColor}`}
+          // >
+          //   {/* Left Content */}
+          //   <div className="flex flex-col gap-3">
+          //     <span className="text-xs font-semibold tracking-wide px-2 py-1 bg-white/20 rounded-md w-fit">
+          //       {brand.name}
+          //     </span>
+
+          //     <div className="flex items-center gap-2">
+          //       <Image
+          //         src={brand.logo}
+          //         alt={brand.name}
+          //         width={40}
+          //         height={40}
+          //         className="object-contain"
+          //       />
+          //     </div>
+          //     <p className="text-sm font-medium">{brand.offer}</p>
+          //   </div>
+
+          //   {/* Right Product Image */}
+          //   <div className="relative w-28 h-28">
+          //     <Image
+          //       src={brand.product}
+          //       alt={brand.name}
+          //       fill
+          //       className="object-contain"
+          //     />
+          //   </div>
+          // </div>
+
           <div
             key={brand.id}
-            className={`rounded-xl p-5 flex justify-between items-center mx-2 ${brand.bg} ${brand.textColor}`}
+            className={`relative rounded-xl p-5 flex justify-between items-center mx-2 ${brand.bg} ${brand.textColor}`}
+            style={{
+              backgroundImage: `url(${brand.bgImg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
           >
-            {/* Left Content */}
-            <div className="flex flex-col gap-3">
+            {/* Overlay (optional for better text visibility) */}
+            <div className="absolute inset-0 bg-black/20 rounded-xl"></div>
+
+            {/* Content */}
+            <div className="relative flex flex-col gap-3 z-10">
               <span className="text-xs font-semibold tracking-wide px-2 py-1 bg-white/20 rounded-md w-fit">
                 {brand.name}
               </span>
@@ -125,7 +166,7 @@ export default function TopElectronicsBrands() {
             </div>
 
             {/* Right Product Image */}
-            <div className="relative w-28 h-28">
+            <div className="relative w-28 h-28 z-10">
               <Image
                 src={brand.product}
                 alt={brand.name}

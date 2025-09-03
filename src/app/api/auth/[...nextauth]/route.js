@@ -7,9 +7,12 @@ export const authOptions = {
       name: "Credentials",
       // The credentials is used to generate a suitable form on the sign in page
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
-        email: { label: "email", type: "email" },
+        username: { label: "Email", type: "Email", placeholder: "Your Email" },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "Your Password",
+        },
       },
       async authorize(credentials, req) {
         // শুধু test করার জন্য static check
