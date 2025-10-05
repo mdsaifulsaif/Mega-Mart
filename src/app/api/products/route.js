@@ -20,7 +20,7 @@ export async function GET() {
 export async function POST(req) {
   try {
     const body = await req.json();
-    console.log("POST body:", body); // debug
+    console.log("POST body:", body);
 
     const collection = await dbconnection("products");
 

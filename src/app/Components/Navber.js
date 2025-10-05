@@ -23,7 +23,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6">
+        <div className="hidden md:flex items-center justify-center space-x-6">
           <Link href="/" className="hover:underline">
             Home
           </Link>
@@ -34,10 +34,16 @@ export default function Navbar() {
             Dashboard
           </Link>
           <Link
-            href="/login"
+            href="/"
             className="px-3 py-1 bg-[#129990] text-white rounded hover:bg-[#129990]"
           >
             Login
+          </Link>
+          <Link
+            href="/register"
+            className="px-3 py-1 border-2 text-[#129990]  border-[#129990]  rounded hover:bg-[#129990]"
+          >
+            Register
           </Link>
           <Login />
         </div>
