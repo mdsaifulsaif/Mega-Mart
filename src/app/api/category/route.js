@@ -8,7 +8,7 @@ export async function POST(request) {
     await ConnectDB();
 
     const body = await request.json();
-    const { name, image } = body;
+    const { name, image, slug, description } = body;
 
     // if (!name) {
     //   return NextResponse.json(
@@ -17,7 +17,12 @@ export async function POST(request) {
     //   );
     // }
 
-    const newCat = await categoryModel.create({ name, image });
+    const newCat = await categoryModel.create({
+      name,
+      image,
+      description,
+      slug,
+    });
 
     return NextResponse.json(
       { success: true, msg: "Category added", data: newCat },
@@ -32,9 +37,26 @@ export async function POST(request) {
   }
 }
 
-export async function GET(request) {
-  console.log("category get api");
-  const categories = await categoryModel.find({});
+export async function GET() {
+  try {
+    await ConnectDB();
 
-  return NextResponse.json({ success: true, msg: "api working", categories });
+    const categories = await categoryModel.find().sort({ createdAt: -1 });
+
+    return NextResponse.json({
+      success: true,
+      message: "Categories fetched successfully",
+      data: categories,
+    });
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Failed to fetch categories",
+        error: error.message,
+      },
+      { status: 500 }
+    );
+  }
 }

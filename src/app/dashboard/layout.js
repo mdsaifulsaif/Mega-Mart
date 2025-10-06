@@ -24,9 +24,9 @@ export default function DashboardLayout({ children }) {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* ✅ Sidebar (Desktop) */}
-      <aside className="hidden md:block w-64 bg-white text-gray-800 shadow-md p-6">
+    <div className="min-h-screen flex bg-gray-50">
+      {/* Sidebar (Desktop) */}
+      <aside className="hidden md:flex fixed top-0 left-0 h-screen w-64 bg-white text-gray-800 shadow-md p-6 flex-col">
         <h2 className="text-2xl font-bold mb-8">Admin Panel</h2>
         <nav className="flex flex-col gap-4">
           {menuItems.map((item) => (
@@ -46,7 +46,7 @@ export default function DashboardLayout({ children }) {
         </nav>
       </aside>
 
-      {/* ✅ Mobile Navbar */}
+      {/* Mobile Navbar */}
       <div className="md:hidden fixed top-0 left-0 w-full bg-white shadow-md p-4 flex justify-between items-center z-50">
         <h2 className="text-xl font-bold">Admin Panel</h2>
         <button onClick={() => setIsOpen(!isOpen)}>
@@ -54,7 +54,7 @@ export default function DashboardLayout({ children }) {
         </button>
       </div>
 
-      {/* ✅ Mobile Sidebar Drawer */}
+      {/* Mobile Sidebar Drawer */}
       <div
         className={`fixed inset-0 z-40 flex transition-transform duration-300 md:hidden ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -80,15 +80,14 @@ export default function DashboardLayout({ children }) {
             ))}
           </nav>
         </div>
-        {/* backdrop */}
         <div
-          className="flex-1 bg-opacity-50"
+          className="flex-1 bg-black bg-opacity-30"
           onClick={() => setIsOpen(false)}
         ></div>
       </div>
 
-      {/* ✅ Content Area */}
-      <main className="flex-1 p-8 mt-16 md:mt-0">
+      {/* Main Content */}
+      <main className="flex-1 md:ml-64 p-8 mt-16 md:mt-0 w-full overflow-auto">
         {children || <h1 className="text-2xl font-bold">Welcome Admin</h1>}
       </main>
     </div>
