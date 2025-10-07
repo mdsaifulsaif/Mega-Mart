@@ -1,5 +1,8 @@
+import userModel from "../../../lib/models/User.model";
+import { ConnectDB } from "../../../lib/config/db";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { NextResponse } from "next/server";
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -7,7 +10,7 @@ export const authOptions = {
       name: "Credentials",
       // The credentials is used to generate a suitable form on the sign in page
       credentials: {
-        username: { label: "Email", type: "Email", placeholder: "Your Email" },
+        email: { label: "Email", type: "Email", placeholder: "Your Email" },
         password: {
           label: "Password",
           type: "password",
@@ -15,22 +18,27 @@ export const authOptions = {
         },
       },
       async authorize(credentials, req) {
-        // শুধু test করার জন্য static check
-        console.log("creditaials", credentials);
-        if (
-          credentials.username === "testuser" &&
-          credentials.password === "1234"
-        ) {
-          // valid হলে একটা user object return করতে হবে
-          return { id: 1, name: "Test User", email: "test@example.com" };
+        const { email, password } = credentials;
+        await ConnectDB();
+        const finding = await userModel.findOne({ email: email });
+        if (!finding) {
+          return NextResponse.json({ msg: "User not exist!" });
         }
 
-        // invalid হলে অবশ্যই null return করতে হবে
+        console.log("creditaials", credentials);
+        if (email == finding.email && password == finding.password) {
+          return {
+            name: finding.name,
+            email: finding.email,
+            role: finding.role,
+          };
+        }
+
         return null;
       },
     }),
   ],
-  secret: "test-secret-key", // env ছাড়া test করার জন্য সরাসরি লিখে দিলাম
+  secret: "test-secret-key",
 };
 const handler = NextAuth(authOptions);
 

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import Loading from "../Loading";
 
 export default function SmartphoneSlider() {
   const [phones, setPhones] = useState([]);
@@ -31,12 +32,7 @@ export default function SmartphoneSlider() {
     fetchPhones();
   }, []);
 
-  if (loading)
-    return (
-      <div className="text-center py-10 font-medium text-gray-600">
-        Loading smartphones...
-      </div>
-    );
+  if (loading) return <Loading />;
 
   return (
     <div className="max-w-6xl px-5 mx-auto mb-8 mt-20">
